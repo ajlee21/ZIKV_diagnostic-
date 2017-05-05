@@ -12,7 +12,20 @@ Description of files
 
 	The GB accessions for all the sequences can be found in Supplementary Table 1:  /Sequence_data/S1_Table.xlsx
 	
-	The Meta-CATS tool in the Virus Pathogen Resource (ViPR; www.viprbrc.org) or Influenza Research Database (IRD; www.fludb.org) was used to compute the variation present at each column of the alignment. Be sure to set the "p-value threshold" at "1.0" to return all results. 
+	The Meta-CATS tool, developed by the Virus Pathogen Resource (ViPR; www.viprbrc.org) and Influenza Research Database (IRD; www.fludb.org) teams, was used to compute the variation present at each column of the alignment. 
+
+	Code for the Meta-CATS analysis can be found in directory:
+	/Sequence_data/Meta-CATS_Variation/metadata_parser.pl
+
+	The metadata_parser.pl file is a wrapper script that parses the input files (taxa assignment and sequence alignment files) and passes them to the meta-CATS script (chisq_test.R) which outputs several statistics files.  
+	Note: we are only using the residue counts for each of the (species vs. all-other-Flavi's) for downstream analyses.
+	
+	Taxa assignment files can be found in /Sequence_Data/E_seq/Flavi_E_Taxa_Assignments.tsv OR /Sequence_Data/NS1_seq/Flavi_NS1_Taxa_Assignments.tsv
+	Alignment files are located in /Sequence_Data/E_seq/Flavi_E_combined.fasta.afa OR /Sequence_Data/NS1_seq/Flavi_NS1_combined.fasta.afa
+	
+	Change lines 15 & 16 of the "metadata_parser.pl" Perl script to the appropriate files containing the taxa assignments metadata and aligned sequences respectively.
+
+	Once the script finishes, the modified alignment files and residue distributions will be reported in separate output files for each taxon. A subset of these files will be used later in this workflow (see #2).
 
 2.  Sensitivity and specificity:
 
@@ -80,9 +93,7 @@ Description of files
 				Add column called "Number of diagnostic sites in 15-mer": is the number of diagnostic sites in the 15mer if the 15mer contains less than 3 sites or the number of surface exposed sites is less than 6
 				Add column called "Number of surface exposed sites in 15-mer (overlap)": is the number of surface sites in the 15mer if the 15mer contains at least 3 sites and the number of surface exposed sites is at least 6
 				Add column called "Number of surface exposed sites in 15-mer": is the number of surface sites in the 15mer if the 15mer contains less than 3 sites or the number of surface exposed sites is less than 6
-				
-				These columns (C through F) are used to create the bar plot 
-				
+				*These columns are used to create the bar plot 
 		Similarly for Surf_overlay_diag_NS1.xlsx and Surf_overlay_diag_allTaxa (allTaxa looks for shared surface diagnostic peptides that have at least 1 diagnostic site and at least surface exposed sites)
 
 
